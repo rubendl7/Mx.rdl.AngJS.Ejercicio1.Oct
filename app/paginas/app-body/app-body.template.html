@@ -1,0 +1,158 @@
+<section style="margin: 3% 0% 5% 0%;">
+
+  <div class="container">
+    <h1>Usuarios</h1>
+
+    <p>Que buscas: <span class="glyphicon glyphicon-search"></span>
+      <input ng-model="$ctrl.query" />
+    </p>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Usuario</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>Sitio Web</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="bato in $ctrl.miRsp | filter:$ctrl.query">
+              <td>{{bato.id}}</td>
+              <td>{{bato.name}}</td>
+              <td>{{bato.username }}</td>
+              <td>{{bato.email }}</td>
+              <td>{{bato.phone }}</td>
+              <td>{{bato.website }}</td>
+              <td>
+                  <a 
+                    class="label label-primary" 
+                    ng-click="$ctrl.Cmpl(bato)"
+                    onclick="show('bsVerMas')" >
+                    <span class="glyphicon glyphicon-eye-open"></span> ver mas 
+                  </a>
+              </td>
+              <td>
+                  <a 
+                    class="label label-danger"
+                    ng-click="$ctrl.lstBlogs(bato)"
+                    onclick="show('bsBlogs')" >            
+                    <span class="glyphicon glyphicon-th-list"></span> 
+                    Blogs
+                  </a>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+    <button class="button button-primary"
+      onclick="show('bsBlogs')">Ver blogs
+    </button>
+
+    <!-- Blogs -->
+    <div id="bsBlogs" >
+      <div class="panel-group">
+        <h4>Blogs de {{ $ctrl.Complemento.name }} <a class="card-link" onclick="hide('bsBlogs')" ><span class="glyphicon glyphicon-remove"></span></a></h4>
+        <div class="panel panel-primary" ng-repeat="blog in $ctrl.Blogs" >
+          <div class="panel-heading">{{ blog.id }}-{{ blog.title }}</div>
+          <div class="panel-body">
+              {{ blog.body }} &nbsp;
+              <a  ng-click="$ctrl.lstPosts(blog.id)"
+                  onclick="show('bsComentarios')" >            
+              <span class="glyphicon glyphicon-comment"></span> 
+              comentarios
+            </a>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+  </div>
+</section>
+
+<!-- Comentarios -->
+<div id="bsComentarios" class="misModales">
+  <h4>Comentarios &nbsp; <a class="card-link" onclick="hide('bsComentarios')" ><span class="glyphicon glyphicon-remove"></span></a></h4>
+  <ul >
+    <li ng-repeat="notas in $ctrl.Comenta" class="thumbnail">
+      <h4>{{notas.name}}</h4>
+      <h5>{{notas.email}}</h5>
+      <p>{{notas.body}}</p>
+    </li>
+  </ul>
+</div>
+
+<!-- Complemento -->
+<div id="bsVerMas" class="misModales">
+
+      <div>
+        <h4>Datos de Usuario &nbsp; <a class="card-link" onclick="hide('bsVerMas')" ><span class="glyphicon glyphicon-remove"></span></a></h4>
+      </div>
+
+      <div>
+        <div class="col-md-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Datos Generales</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ $ctrl.Complemento.name }}</h6>
+              <p class="card-text"><b>id:</b> {{ $ctrl.Complemento.id }}<br/>
+                <b>username:</b> {{ $ctrl.Complemento.username }}<br/>
+                <b>email:</b> {{ $ctrl.Complemento.email }}<br/>
+                <b>phone:</b> {{ $ctrl.Complemento.phone }}<br/>
+              <a href="{{ $ctrl.Complemento.website }}" class="card-link">{{ $ctrl.Complemento.website }}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Domicilio</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ $ctrl.Complemento.name }}</h6>
+              <p class="card-text"><b>street:</b> {{ $ctrl.Complemento.address.street }} <br/>
+                <b>suite:</b> {{ $ctrl.Complemento.address.suite }} <br/>
+                <b>city:</b> {{ $ctrl.Complemento.address.city }} <br/>
+                <b>zipcode:</b> {{ $ctrl.Complemento.address.zipcode }}</p>
+              <a class="card-link">Cord:{{ $ctrl.Complemento.address.geo.lat }}-{{ $ctrl.Complemento.address.geo.lng }} <span class="glyphicon glyphicon-map-marker"></span></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Lugar de trabajo</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ $ctrl.Complemento.name }}</h6>
+              <p class="card-text"><b>cname:</b> {{ $ctrl.Complemento.company.name }}<br/>
+                <b>ccatchPhrase:</b> {{ $ctrl.Complemento.company.catchPhrase }}<br/>
+                <b>cbs:</b> {{ $ctrl.Complemento.company.bs }}</p>
+            </div>
+          </div>            
+        </div> 
+      </div>
+
+
+</div>
+
+
+<style>
+  .misModales {
+    background: rgb(250, 249, 249); 
+    display: none; 
+    position: fixed; 
+    top: 15%; 
+    height: 70%;
+    left: 3%; 
+    width: 94%; 
+    padding: 4%; 
+    margin-bottom: 10%; 
+    border: 1px solid #ddd; 
+    box-shadow: 2px 2px 2px #888;
+    overflow-y: scroll;
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
+  }
+
+</style>

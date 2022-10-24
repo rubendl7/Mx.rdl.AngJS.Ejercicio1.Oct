@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" ng-app="rubendlApp">
+      <head>
+        <meta charset="utf-8">
+        <title>Test y ejemplo</title>
+        <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+        <script src="lib/jquery/dist/jquery.js"></script>
+        <script src="lib/angular/angular.js"></script>
+        <script src="lib/angular-resource/angular-resource.js"></script>
+        <script src="lib/angular-route/angular-route.js"></script>
+        <script src="app.module.js"></script>
+        <script src="app.config.js"></script>
+        <script src="js/utilerias.js"></script>
+
+        <script src="servicios/servicios.module.js"></script>
+        <script src="servicios/dbservice/dbservice.module.js"></script>
+        <script src="servicios/dbservice/dbservice.service.js"></script> 
+        <script src="paginas/app-body/app-body.module.js"></script>
+        <script src="paginas/app-body/app-body.component.js"></script>
+
+      </head>
+
+      <body>
+
+        <section ng-controller="rubendlController" ng-init="miReloj()">
+          <header ng-include="'app-header/app-header.template.html'"></header>
+        </section>
+        <div ng-view></div>
+        <section>
+          <footer ng-include="'app-footer/app-footer.template.html'"></footer>
+        </section>
+
+      </body>
+</html>
